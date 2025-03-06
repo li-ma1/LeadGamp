@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.12.0'
+    id 'io.freefair.lombok' version '6.5.0'
+    id 'checkstyle'
+    id("org.gradle.test-retry") version "1.6.0"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    allureVersion = '2.23.0'
+    junitVersion = '5.10.2'
+    checkstyleVersion = '10.12.1'
+    seleniumVersion = '4.11.0'
+    sl4jVersion = '2.0.13'
+    restAssuredVersion = '5.3.1'
+    webdrivermanagerVersion = '5.9.2'
+    jacksonVersion = '2.15.2'
+    lombokVersion = '1.18.30'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    implementation("org.seleniumhq.selenium:selenium-java:${seleniumVersion}")
+    implementation("org.projectlombok:lombok:${lombokVersion}")
+    implementation("io.rest-assured:rest-assured:${restAssuredVersion}")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}")
+    implementation("io.github.bonigarcia:webdrivermanager:${webdrivermanagerVersion}")
+    implementation("io.qameta.allure:allure-junit5:${allureVersion}")
+    testImplementation("org.slf4j:slf4j-simple:${sl4jVersion}")
+
+    implementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    implementation("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+
+    checkstyle "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('checkstyleAll', Checkstyle) {
+    source = files(sourceSets.main.allJava, sourceSets.test.allJava)
+    classpath = files(sourceSets.main.compileClasspath, sourceSets.test.compileClasspath)
+    configFile = file('config/checkstyle/checkstyle.xml')
+    description = 'Проверка стиля кода'
+    group = 'tasks'
+}
+
+tasks.named('allureServe') {
+    group = 'tasks'
+    description = 'Запуск allure отчётов'
+}
+

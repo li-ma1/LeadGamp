@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="api.FilterTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-03-05T00:01:19" hostname="DESKTOP-TBFL3TD" time="5.705">
+  <properties/>
+  <testcase name="companyLoginApiTest()" classname="api.FilterTest" time="5.705"/>
+  <system-out><![CDATA[{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImlhdCI6MTc0MTEzMjg4NCwiZXhwIjoxNzQzNzI0ODg0fQ.BWG5GfSSD11rluP36qzTJvYo7V3mj4Gf51jHhGvsXPg",
+    "profile_name": "Service Leadgamp",
+    "uuid": "8476746a-feab-470a-8f78-9e2632c66691",
+    "account_type": "company",
+    "provider": "local"
+}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImlhdCI6MTc0MTEzMjg4NCwiZXhwIjoxNzQzNzI0ODg0fQ.BWG5GfSSD11rluP36qzTJvYo7V3mj4Gf51jHhGvsXPg
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
