@@ -7,10 +7,9 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import static web.helpers.UserPropertiesReader.BASE_URL_DEPOSIT_API;
 
-
 public class CompaniesService {
 
-    public void getTokenOfCompany(String emailCompany, String passwordCompany) {
+    public String getTokenOfCompany(String emailCompany, String passwordCompany) {
         Response response = given()
                 .baseUri(BASE_URL_DEPOSIT_API)
                 .contentType(ContentType.JSON)
@@ -25,9 +24,25 @@ public class CompaniesService {
                 .extract().response();
         response.prettyPrint();
         String jsonString = response.getBody().asString();
-        String tokenCompany = JsonPath.from(jsonString).get("token");
-        System.out.println(tokenCompany);
+        return JsonPath.from(jsonString).get("token");
     }
 
+    public void checkFilters(String emailCompany, String passwordCompany, String filters1, String valueFilters1,
+                             String filters2, String valueFilters2) {
+        Response response = given()
+                .baseUri(BASE_URL_DEPOSIT_API)
+                .header("Authorization", "Bearer " + getTokenOfCompany(emailCompany, passwordCompany))
+                .contentType(ContentType.JSON)
+                .queryParam(filters1, valueFilters1)
+                .queryParam(filters2, valueFilters2)
+                .when()
+                .get("company/filter-drivers")
+                .then()
+                .statusCode(200)
+                .extract().response();
+        response.prettyPrint();
+        String jsonString = response.getBody().asString();
+
+    }
 
 }

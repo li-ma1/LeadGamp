@@ -8,7 +8,7 @@ public class FilterTest extends BaseApiTest {
 
     @Test
     public void companyLoginApiTest() {
-        companyApi.getTokenOfCompany(COMPANY_EMAIL, COMPANY_PASSWORD);
+        companyApi.checkFilters(COMPANY_EMAIL, COMPANY_PASSWORD, "zip", "12345", "type-trailers", "7");
     }
 
 }
