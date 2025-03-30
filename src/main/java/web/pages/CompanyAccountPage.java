@@ -21,7 +21,7 @@ public class CompanyAccountPage extends BasePage {
     private WebElement clickYes;
 
     private WebElement inviteToMatchForDriver(String name) {
-        String xpath = String.format("//*[contains(text(), '%s')]/parent::*/parent::*/parent::*/td/div/button", name);
+        String xpath = String.format("//*[contains(text(), '%s')][1]/parent::*/parent::*/parent::*/td/div/button", name);
         return getDriver().findElement(By.xpath(xpath));
     }
 
@@ -32,7 +32,7 @@ public class CompanyAccountPage extends BasePage {
     private WebElement messageInviteToMatch;
 
     private WebElement messageContactRequested(String name) {
-        String xpath = String.format("//*[contains(text(), '%s')]/parent::*/parent::*/parent::*/td/div/span[contains(text(), 'Contact requested')]", name);
+        String xpath = String.format("//*[contains(text(), '%s')][1]/parent::*/parent::*/parent::*/td/div/span[contains(text(), 'Contact details requested')]", name);
         return getDriver().findElement(By.xpath(xpath));
     }
 
@@ -41,6 +41,9 @@ public class CompanyAccountPage extends BasePage {
 
     @FindBy(xpath = "//span[contains(text(), 'Basic Drivers')]/preceding-sibling::span")
     private WebElement numberOfBasicDrivers;
+
+    @FindBy(xpath = "//span[text()='All']/span[text()]")
+    private WebElement checkCountAfterFilter;
 
     private WebElement emailOfMatchedDriver(String name, String email) {
         String xpath = String.format("//*[contains(text(), '%s')]/parent::*/parent::*/parent::*/td//div//span[contains(text(),'%s')]", name, email);
@@ -52,14 +55,53 @@ public class CompanyAccountPage extends BasePage {
         return getDriver().findElement(By.xpath(xpath));
     }
 
+    private WebElement inputExperience(String inputExperience) {
+        String xpath = String.format("//p[text()='Experience']/parent::*//div[text() = '%s']", inputExperience);
+        return getDriver().findElement(By.xpath(xpath));
+    }
+
+    private WebElement inputFreightType(String inputFreightType) {
+        String xpath = String.format("//p[text()='Freight type']/parent::*//div[text() = '%s']", inputFreightType);
+        return getDriver().findElement(By.xpath(xpath));
+    }
+
+    private WebElement inputHomeTimesSearch(String inputHomeTimesSearch) {
+        String xpath = String.format("//p[text()='Home times']/parent::*//div[text() = '%s']", inputHomeTimesSearch);
+        return getDriver().findElement(By.xpath(xpath));
+    }
+
     @FindBy(xpath = "//input[@name = 'zip']")
     private WebElement inputSearch;
+
+    @FindBy(xpath = "//button[contains(text(), 'New Search')]")
+    private WebElement newSearch;
 
     @FindBy(xpath = "//span[contains(text(), 'Open advanced search')]")
     private WebElement advancedSearch;
 
     @FindBy(xpath = "//span[contains(text(), 'Match declined.')]")
     private WebElement declineMassage;
+
+    @FindBy(xpath = "//p[text()='Experience']/parent::*//div[text()='Select...']/parent::*//div/input")
+    private WebElement experienceInput;
+
+    @FindBy(xpath = "//p[text()='Freight type']/parent::*//div[text()='Select...']/parent::*//div/input")
+    private WebElement freightTypeInput;
+
+    @FindBy(xpath = "//p[text()='Home times']/parent::*//div[text()='Select...']/parent::*//div/input")
+    private WebElement homeTimesInput;
+
+    @FindBy(xpath = "//a[@aria-label = 'Page 2']")
+    private WebElement secondPage;
+
+    @FindBy(xpath = "//a[@aria-label = 'Page 1']")
+    private WebElement firstPage;
+
+    @FindBy(xpath = "//span[text() = 'Return to basic search']")
+    private WebElement returnBasicSearch;
+
+    @FindBy(xpath = "//span[@class= 'styles_activeFilters__asqFn']")
+    private WebElement checkSearch;
 
     private WebElement buttonGetContact(String nameContact) {
         String xpath = String.format("//p[text() = '%s']/parent::*/parent::*/parent::*//td/div/button[text() = 'Get contact']", nameContact);
@@ -122,10 +164,60 @@ public class CompanyAccountPage extends BasePage {
     }
 
     public void inputSearchDriver(String input) {
+        waitElement(newSearch);
+        clickOnElement(newSearch);
         waitElement(advancedSearch);
         clickOnElement(advancedSearch);
         clickOnElement(inputSearch);
         inputSearch(inputSearch, input);
+    }
+
+    public void experienceSearchDriver(String experience)  {
+        waitElement(newSearch);
+        clickOnElement(newSearch);
+        waitElement(advancedSearch);
+        clickOnElement(advancedSearch);
+        waitElement(experienceInput);
+        clickOnElement(experienceInput);
+        inputSearch(experienceInput, experience);
+        clickEnter();
+        waitElement(inputExperience(experience));
+    }
+
+    public String changePage() {
+        waitElement(secondPage);
+        scrollToElement(secondPage);
+        clickOnElement(secondPage);
+        waitElement(firstPage);
+        clickOnElement(firstPage);
+        waitElement(returnBasicSearch);
+        scrollToElement(returnBasicSearch);
+        clickOnElement(returnBasicSearch);
+        return getTextElement(checkSearch);
+    }
+
+
+    public void freightTypeSearchDriver(String freightType) {
+        waitElement(freightTypeInput);
+        clickOnElement(freightTypeInput);
+        inputSearch(freightTypeInput, freightType);
+        clickEnter();
+        waitElement(inputFreightType(freightType));
+        clickEnter();
+
+    }
+
+    public void homeTimesSearchDriver(String homeTimes) {
+        waitElement(homeTimesInput);
+        clickOnElement(homeTimesInput);
+        inputSearch(homeTimesInput, homeTimes);
+        clickEnter();
+        waitElement(inputHomeTimesSearch(homeTimes));
+    }
+
+    public String checkCountAfterFilter() throws InterruptedException {
+        Thread.sleep(5000);
+        return checkCountAfterFilter.getText();
     }
 
     public String numberOfMatchedDrivers() {

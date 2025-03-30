@@ -1,5 +1,6 @@
 package web;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,12 @@ public class MatchCompanyDriverTest extends BaseTest {
     @BeforeEach
     public void setUpTest() {
         open(BASE_URL, "");
+    }
+
+    @AfterEach
+    public void cleanTest() {
+        serverApi.getIdOfRelation(COMPANY_ID, DRIVER_ID);
+        serverApi.deleteOfRelation();
     }
 
     @Test
@@ -38,8 +45,6 @@ public class MatchCompanyDriverTest extends BaseTest {
         System.out.println("У компании было " + numberFirst + " Matched Drivers");
         System.out.println("У компании стало " + numberSecond + " Matched Drivers");
         Assertions.assertEquals(Integer.parseInt(numberFirst), Integer.parseInt(numberSecond) + 1);
-        serverApi.getIdOfRelation(COMPANY_ID, DRIVER_ID);
-        serverApi.deleteOfRelation();
     }
 
     @Test
@@ -68,8 +73,6 @@ public class MatchCompanyDriverTest extends BaseTest {
         System.out.println("У компании было " + numberFirst + " Matched Drivers");
         System.out.println("У компании осталось " + numberSecond + " Matched Drivers");
         Assertions.assertEquals(Integer.parseInt(numberFirst), Integer.parseInt(numberSecond));
-        serverApi.getIdOfRelation(COMPANY_ID, DRIVER_ID);
-        serverApi.deleteOfRelation();
     }
 
     @Test

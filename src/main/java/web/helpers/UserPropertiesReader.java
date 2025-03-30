@@ -55,5 +55,8 @@ public class UserPropertiesReader {
     public static String DRIVER_CONTACT_ID = getProperty("driver_contact_id");
     public static String COMPANY_ID = getProperty("company_id");
     public static String BASE_URL_DEPOSIT_API = getProperty("base_url_deposit_api");
-    public static String API_TOKEN= getProperty("api_token");
+    public static String API_TOKEN = getProperty("api_token");
+    public static String FILTER_EXPERIENCE = getProperty("filter_experienceSearch");
+    public static String FILTER_FREIGHTTYPE = getProperty("filter_freightTypeSearch");
+    public static String FILTER_HOMETIMES = getProperty("filter_homeTimesSearch");
 }

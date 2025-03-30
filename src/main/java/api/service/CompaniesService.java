@@ -27,14 +27,12 @@ public class CompaniesService {
         return JsonPath.from(jsonString).get("token");
     }
 
-    public void checkFilters(String emailCompany, String passwordCompany, String filters1, String valueFilters1,
-                             String filters2, String valueFilters2) {
+    public String checkOneFilters(String emailCompany, String passwordCompany, String filters1, String valueFilters1, String responseValue) {
         Response response = given()
                 .baseUri(BASE_URL_DEPOSIT_API)
                 .header("Authorization", "Bearer " + getTokenOfCompany(emailCompany, passwordCompany))
                 .contentType(ContentType.JSON)
                 .queryParam(filters1, valueFilters1)
-                .queryParam(filters2, valueFilters2)
                 .when()
                 .get("company/filter-drivers")
                 .then()
@@ -42,7 +40,26 @@ public class CompaniesService {
                 .extract().response();
         response.prettyPrint();
         String jsonString = response.getBody().asString();
+        return (JsonPath.from(jsonString).get(responseValue)).toString();
+    }
 
+    public String checkThreeFilters(String emailCompany, String passwordCompany, String filters1, String valueFilters1, String filters2, String valueFilters2, String filters3, String valueFilters3, String responseValue) {
+        Response response = given()
+                .log().all()
+                .baseUri(BASE_URL_DEPOSIT_API)
+                .header("Authorization", "Bearer " + getTokenOfCompany(emailCompany, passwordCompany))
+                .contentType(ContentType.JSON)
+                .queryParam(filters1, valueFilters1)
+                .queryParam(filters2, valueFilters2)
+                .queryParam(filters3, valueFilters3)
+                .when()
+                .get("company/filter-drivers")
+                .then()
+                .statusCode(200)
+                .extract().response();
+        response.prettyPrint();
+        String jsonString = response.getBody().asString();
+        return (JsonPath.from(jsonString).get(responseValue)).toString();
     }
 
 }

@@ -35,6 +35,34 @@ public class CompanyAccountSteps {
         return this;
     }
 
+    @Step("Input in Experience Field")
+    public CompanyAccountSteps experienceSearch(String experience) throws InterruptedException {
+        companyAccountPage.experienceSearchDriver(experience);
+        return this;
+    }
+
+    @Step("Change Page")
+    public String changePage()  {
+        return companyAccountPage.changePage();
+    }
+
+    @Step("Input in Freight Type Field")
+    public CompanyAccountSteps freightTypeSearch(String freightType) throws InterruptedException {
+        companyAccountPage.freightTypeSearchDriver(freightType);
+        return this;
+    }
+
+    @Step("Input in Home Times Field")
+    public CompanyAccountSteps homeTimesSearch(String homeTimes) throws InterruptedException {
+        companyAccountPage.homeTimesSearchDriver(homeTimes);
+        return this;
+    }
+
+    @Step("Check count after filter")
+    public String checkCount() throws InterruptedException {
+        return companyAccountPage.checkCountAfterFilter();
+    }
+
     @Step("Click on driver")
     public CompanyAccountSteps clickOnDriver(String name) {
         companyAccountPage.clickOnDriverLine(name);

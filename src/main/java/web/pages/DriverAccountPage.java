@@ -10,12 +10,12 @@ import static web.helpers.Waiters.*;
 public class DriverAccountPage extends BasePage{
 
     private WebElement buttonAccept(String nameCompany) {
-        String xpath = String.format("//p[contains(text(), '%s')]/parent::*/parent::*//button[text()='Accept']", nameCompany);
+        String xpath = String.format("//p[contains(text(), '%s')]/parent::*/parent::*//button[contains(text(), 'Accept')]", nameCompany);
         return getDriver().findElement(By.xpath(xpath));
     }
 
     private WebElement buttonDecline(String nameCompany) {
-        String xpath = String.format("//*[contains(text(), '%s')]/parent::*/parent::*//button[text()='Decline']", nameCompany);
+        String xpath = String.format("//*[contains(text(), '%s')]/parent::*/parent::*//button[contains(text(), 'Decline')]", nameCompany);
         return getDriver().findElement(By.xpath(xpath));
     }
 
