@@ -32,6 +32,7 @@ public class DriverManager {
         options.setImplicitWaitTimeout(Duration.ofSeconds(TIME_TO_WAIT));
         options.addArguments("start-maximized");
         options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         return new ChromeDriver(options);
     }
