@@ -23,7 +23,7 @@ jobs:
       - name: Setup Chrome and ChromeDriver
         uses: nanasess/setup-chromedriver@v2
         with:
-          chromedriver_version: '134.0.6998.166'
+           chromedriver_version: 'latest'
 
       - name: Cache Gradle dependencies
         uses: actions/cache@v3
