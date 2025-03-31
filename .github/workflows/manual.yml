@@ -42,7 +42,16 @@ jobs:
           arguments: test
 
       - name: Upload Test Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-report
-          path: build/reports/tests/test/index.html
+        if: success() && always() # Запускаем только если предыдущие шаги успешны и всегда
+        run: |
+          if [[ -f "build/reports/tests/test/index.html" ]]; then
+            echo "Report exists, uploading..."
+          else
+            echo "Report does not exist, skipping upload."
+            exit 0
+          fi
+          - name: Upload Test Report
+          uses: actions/upload-artifact@v3
+          with:
+            name: test-report
+            path: build/reports/tests/test/index.html
