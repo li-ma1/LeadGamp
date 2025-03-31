@@ -23,7 +23,10 @@ jobs:
       - name: Setup Chrome and ChromeDriver
         uses: nanasess/setup-chromedriver@v2
         with:
-           chromedriver_version: 'latest'
+          chromedriver-version: '134.0.6998.166'
+
+      - name: Check Chrome version
+        run: google-chrome --version
 
       - name: Cache Gradle dependencies
         uses: actions/cache@v3
@@ -37,3 +40,18 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: test
+
+      - name: Upload Test Report
+        if: success() && always() # Запускаем только если предыдущие шаги успешны и всегда
+        run: |
+          if [[ -f "build/reports/tests/test/index.html" ]]; then
+            echo "Report exists, uploading..."
+          else
+            echo "Report does not exist, skipping upload."
+            exit 0
+          fi
+          - name: Upload Test Report
+          uses: actions/upload-artifact@v3
+          with:
+            name: test-report
+            path: build/reports/tests/test/index.html
