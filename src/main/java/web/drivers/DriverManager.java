@@ -1,5 +1,6 @@
 package web.drivers;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -28,6 +29,7 @@ public class DriverManager {
     }
 
     private static WebDriver createChromeDriver() {
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setImplicitWaitTimeout(Duration.ofSeconds(TIME_TO_WAIT));
         options.addArguments("start-maximized");

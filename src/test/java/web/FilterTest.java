@@ -2,18 +2,12 @@ package web;
 
 import jdk.jfr.Description;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 import static web.helpers.UserPropertiesReader.*;
 
 public class FilterTest extends BaseTest {
-
-    @BeforeEach
-    public void setUpTest() {
-        open(BASE_URL, "");
-    }
 
     @Test
     @Description("Проверка, что количество полученных водителей через апи и через фронт при одинаковом фильтре совпадает")

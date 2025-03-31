@@ -2,17 +2,11 @@ package web;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static web.helpers.UserPropertiesReader.*;
 
 public class MatchCompanyDriverTest extends BaseTest {
-
-    @BeforeEach
-    public void setUpTest() {
-        open(BASE_URL, "");
-    }
 
     @AfterEach
     public void cleanTest() {
