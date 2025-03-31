@@ -23,7 +23,7 @@ jobs:
       - name: Setup Chrome and ChromeDriver
         uses: nanasess/setup-chromedriver@v2
         with:
-          chromedriver-version: 'latest'
+          chromedriver-version: '134.0.6998.166'
 
       - name: Check Chrome version
         run: google-chrome --version
